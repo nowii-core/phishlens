@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>PhishLens — Test suite</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { padding: 2rem; }
+    h1 { text-align: center; }
+    .summary { text-align: center; font-size: 1.2rem; margin-bottom: 2rem; padding: 1rem; border-radius: 10px; }
+    .summary.ok { background: #0f3d1e; color: #7fff9e; border: 1px solid #2ecc71; }
+    .summary.ko { background: #3d0f0f; color: #ff9e9e; border: 1px solid #e74c3c; }
+    .test { padding: .75rem 1rem; margin: .5rem 0; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); }
+    .test.pass { border-left: 4px solid #2ecc71; }
+    .test.fail { border-left: 4px solid #e74c3c; }
+    .test .icon { margin-right: .5rem; font-weight: bold; }
+    .test .err { color: #ff9e9e; font-family: var(--mono); font-size: .8rem; margin-top: .3rem; }
+  </style>
+</head>
+<body>
+  <h1>🧪 PhishLens — Test suite</h1>
+  <div id="summary">Esecuzione...</div>
+  <div id="tests"></div>
+  <script type="module">
+    import { runAll } from './run.js';
+    const { results, passed, total, ok } = runAll();
+    const summary = document.getElementById('summary');
+    summary.className = 'summary ' + (ok ? 'ok' : 'ko');
+    summary.textContent = (ok ? '✅' : '❌') + ' ' + passed + '/' + total + ' test passati' + (ok ? ' — tutto perfetto!' : '');
+    const container = document.getElementById('tests');
+    results.forEach(r => {
+      const div = document.createElement('div');
+      div.className = 'test ' + (r.pass ? 'pass' : 'fail');
+      div.innerHTML = '<span class="icon">' + (r.pass ? '✅' : '❌') + '</span>' + r.name + (r.error ? '<div class="err">' + r.error + '</div>' : '');
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>

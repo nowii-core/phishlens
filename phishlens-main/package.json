@@ -1,0 +1,9 @@
+{
+  "name": "phishlens",
+  "version": "1.0.0",
+  "description": "Client-side phishing detector — 100% privacy, zero dependencies.",
+  "type": "module",
+  "scripts": { "start": "python3 -m http.server 8080" },
+  "license": "MIT",
+  "keywords": ["phishing","security","privacy","no-dependencies","offline-first","vanilla-js","pwa"]
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishLens | Enterprise Threat Intelligence</title>
+  <!-- PWA Connections -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <meta name="theme-color" content="#09090b">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>PHISHLENS</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-view="scanner">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Threat Scanner
+      </a>
+      <a href="#" class="nav-item" data-view="history">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        History Log
+      </a>
+      <a href="#" class="nav-item" data-view="api">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        API Access
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="status-indicator"><span class="dot pulse"></span><span>ENGINE ONLINE</span></div>
+      <div class="version">v2.3.0-enterprise</div>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <div class="ticker-wrapper">
+        <div class="ticker-label">SYS.LOG</div>
+        <div class="ticker-content">
+          <span class="ticker-item"><span class="ticker-tag critical">CRITICAL</span> Intercepted phishing attempt</span>
+          <span class="ticker-item"><span class="ticker-tag safe">BLOCKED</span> Malicious payload via header spoof</span>
+          <span class="ticker-item"><span class="ticker-tag warn">WARNING</span> Suspicious IP 192.168.1.42 flagged</span>
+        </div>
+      </div>
+      <button class="theme-toggle" id="theme-toggle">
+        <svg id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg id="icon-sun" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </header>
+
+    <main class="view active" id="view-scanner">
+      <div class="dashboard">
+        <section class="panel input-panel">
+          <div class="panel-header">
+            <h2>Scan Configuration</h2>
+            <div class="tabs">
+              <button class="tab active" data-tab="url">URL</button>
+              <button class="tab" data-tab="text">TEXT</button>
+              <button class="tab" data-tab="headers">HEADERS</button>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <!-- URL -->
+            <div class="form-group active" data-panel="url">
+              <label>Target Endpoint</label>
+              <div class="input-wrapper">
+                <span class="prompt-symbol">https://</span>
+                <input type="text" id="url-input" placeholder="suspicious-domain.com/login" autocomplete="off" spellcheck="false">
+                <button class="btn-icon" id="paste-url-btn" title="Paste from clipboard" style="padding: 0.2rem; border:none;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                </button>
+              </div>
+              <div class="actions">
+                <button class="btn-primary" id="url-btn"><span id="url-btn-text">Run Diagnostic</span></button>
+              </div>
+            </div>
+
+            <!-- TEXT -->
+            <div class="form-group" data-panel="text">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label>Payload Content</label>
+                <button class="btn-icon" id="paste-text-btn" title="Paste from clipboard" style="padding: 0; border:none; font-size: 0.7rem; font-family: var(--font-mono); color: var(--text-muted);">PASTE</button>
+              </div>
+              <textarea id="text-input" placeholder="Paste raw email/SMS content or drag a .txt/.eml file here..."></textarea>
+              <div class="actions">
+                <button class="btn-secondary example-btn" data-target="text" data-content="Gentile cliente, il suo conto è stato BLOCCATO. Verifichi qui: http://intesa-sanpaolo-verifica.tk/login">Load Sample</button>
+                <button class="btn-primary" id="text-btn"><span id="text-btn-text">Run Diagnostic</span></button>
+              </div>
+            </div>
+
+            <!-- HEADERS -->
+            <div class="form-group" data-panel="headers">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label>Raw Headers</label>
+                <button class="btn-icon" id="paste-headers-btn" title="Paste from clipboard" style="padding: 0; border:none; font-size: 0.7rem; font-family: var(--font-mono); color: var(--text-muted);">PASTE</button>
+              </div>
+              <textarea id="headers-input" placeholder="From: ...&#10;Reply-To: ..."></textarea>
+              <div class="actions">
+                <button class="btn-primary" id="headers-btn"><span id="headers-btn-text">Run Diagnostic</span></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel output-panel">
+          <div class="empty-state" id="empty-state">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <h3>Engine Idle</h3>
+            <p>Configure input parameters to initiate analysis.</p>
+          </div>
+
+          <div class="loading-state hidden" id="loading-state">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-score"></div>
+            <div class="skeleton skeleton-line"></div>
+            <div class="skeleton skeleton-line"></div>
+            <div class="skeleton skeleton-line" style="width: 60%"></div>
+            <p class="mono loading-text">Running deep packet inspection...</p>
+          </div>
+
+          <div class="results-state hidden" id="results-state">
+            <div class="output-tabs">
+              <button class="out-tab active" data-out="overview">OVERVIEW</button>
+              <button class="out-tab" data-out="json">RAW JSON</button>
+            </div>
+
+            <div class="out-content active" data-out-content="overview">
+              <div class="score-hero" id="score-hero">
+                <div class="score-value" id="score-value">0</div>
+                <div class="score-details">
+                  <div class="score-badge" id="score-badge">UNKNOWN</div>
+                  <p id="score-advice">Awaiting analysis...</p>
+                </div>
+              </div>
+              <div class="findings-container">
+                <div class="findings-header">
+                  <span>ID</span><span>SEVERITY</span><span>DESCRIPTION</span>
+                </div>
+                <ul class="findings-list" id="findings-list"></ul>
+              </div>
+            </div>
+
+            <div class="out-content" data-out-content="json">
+              <pre id="json-output" class="json-viewer"></pre>
+            </div>
+
+            <div class="output-footer">
+              <button class="btn-secondary" id="share-btn">Share Link</button>
+              <button class="btn-secondary" id="export-btn">Download JSON</button>
+              <button class="btn-icon" id="clear-btn" title="Clear">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <main class="view" id="view-history">
+      <div class="panel" style="width: 100%; height: 100%;">
+        <div class="panel-header">
+          <h2>Local Scan History</h2>
+          <button class="btn-secondary" id="clear-history-btn">Clear Log</button>
+        </div>
+        <div class="panel-body" style="overflow-y: auto;">
+          <table class="history-table">
+            <thead><tr><th>Timestamp</th><th>Type</th><th>Target</th><th>Score</th><th>Action</th></tr></thead>
+            <tbody id="history-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <main class="view" id="view-api">
+      <div class="panel" style="width: 100%; height: 100%;">
+        <div class="panel-header">
+          <h2>Developer API Access</h2>
+          <span class="ticker-tag safe">ACTIVE</span>
+        </div>
+        <div class="panel-body" style="overflow-y: auto; max-width: 800px; margin: 0 auto; padding-top: 3rem;">
+          <h1 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text);">Integrate PhishLens Engine</h1>
+          <p style="color: var(--text-muted); margin-bottom: 2rem;">The PhishLens heuristic engine is entirely client-side. You can import the core modules directly into your JavaScript applications without any external API calls.</p>
+          <div style="margin-bottom: 2rem;">
+            <label>Your API Key (Mock)</label>
+            <div class="input-wrapper"><input type="text" readonly value="pl_live_9f8a7b6c5d4e3f2a1b0c"></div>
+          </div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text);">1. Import Module</h3>
+          <pre class="json-viewer" style="margin-bottom: 2rem;">import { analyzeUrl } from './js/analyzers/url.js';
+
+const target = 'http://paypa1-login.tk/verify';
+const report = analyzeUrl(target);
+
+console.log(report.score); // 100
+console.log(report.findings); // [{ id: 'typo', severity: 'critical', ... }]</pre>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
