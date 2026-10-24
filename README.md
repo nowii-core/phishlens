@@ -39,6 +39,8 @@
 
 ![PhishLens Screenshot](Screenshot-1.png)
 
+> **Live Demo:** [nowii-core.github.io/phishlens/](https://nowii-core.github.io/phishlens/)
+
 ---
 
 ## Key Features
