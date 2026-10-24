@@ -63,3 +63,6 @@ No build step required.
 1. Clone the repository:
    ```bash
    git clone https://github.com/nowii-core/phishlens.git
+
+
+GitHub: @nowii-core
