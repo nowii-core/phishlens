@@ -1,6 +1,37 @@
 # PhishLens
 
-Engine di threat intelligence client-side progettato per il rilevamento di tentativi di phishing, typosquatting e spoofing, sviluppato con un focus assoluto su privacy e performance.
+<p align="center">
+  <b>Client-Side Threat Intelligence Engine Designed for Detecting Phishing, Typosquatting, and Spoofing with an Absolute Focus on Privacy and Performance</b>
+</p>
+
+<p align="center">
+  <a href="https://github.com/nowii-core/phishlens/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/badge/CI-Passing-2ea44f?style=for-the-badge&logo=githubactions&logoColor=white" alt="CI Status">
+  </a>
+  <a href="https://github.com/nowii-core/phishlens/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-007ec6?style=for-the-badge" alt="License">
+  </a>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-ES6%2B-f7df1e?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+</p>
+
+<p align="center">
+  <a href="#-overview">Overview</a> •
+  <a href="#-key-features">Features</a> •
+  <a href="#-scoring-system">Scoring System</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-contact">Contact</a>
+</p>
+
+---
+
+</div>
+
+## Overview
+
+**PhishLens** executes its entire analysis directly within the browser, guaranteeing that no data ever leaves the user's device. The system makes no external API calls, includes no tracking, and maintains zero external dependencies. It combines heuristic analysis with a modern SOC (Security Operations Center) style dashboard to provide immediate, actionable risk reports.
 
 ---
 
@@ -10,59 +41,82 @@ Engine di threat intelligence client-side progettato per il rilevamento di tenta
 
 ---
 
-## Panoramica
+## Key Features
 
-PhishLens esegue l'intera analisi direttamente nel browser, garantendo che nessun dato lasci il dispositivo dell'utente. Il sistema non effettua chiamate API esterne, non include tracciamenti e azzera le dipendenze esterne. Combina analisi euristica e una moderna dashboard di tipo SOC (Security Operations Center) per fornire report di rischio immediati e azionabili.
-
----
-
-## Funzionalità Principali
-
-- **URL Analyzer:** Rilevamento di typosquatting (distanza di Levenshtein), host IP, domini punycode, TLD sospetti, URL shortener ed estensioni eseguibili.
-- **Text Payload Analyzer:** Scansione di email e SMS per parole chiave di urgenza, richieste di credenziali, IBAN, carte di credito e wallet crypto, con analisi ricorsiva dei link incorporati.
-- **Email Header Analyzer:** Validazione SPF, DKIM, DMARC, identificazione di disallineamenti From/Reply-To e rilevamento di Display Name spoofing.
-- **Enterprise Dashboard:** Interfaccia grafica con supporto ai temi scuro/chiaro, stati di caricamento skeleton e cronologia locale delle scansioni.
-- **Raw JSON Export:** Visualizzazione ed esportazione di report dettagliati in formato JSON per l'integrazione con sistemi SIEM.
-- **PWA Ready:** Installabile come applicazione desktop/mobile e pienamente utilizzabile offline tramite Service Workers.
-- **Anti-Crash Protection:** Limiti di dimensione del payload per prevenire blocchi del browser su input massivi.
+- **URL Analyzer:** Detection of typosquatting (Levenshtein distance), IP hosts, punycode domains, suspicious TLDs, URL shorteners, and executable extensions.
+- **Text Payload Analyzer:** Scanning of emails and SMS for urgency keywords, credential requests, IBANs, credit cards, and crypto wallets, including recursive analysis of embedded links.
+- **Email Header Analyzer:** Validation of SPF, DKIM, DMARC, identification of From/Reply-To misalignments, and detection of Display Name spoofing.
+- **Enterprise Dashboard:** Graphical interface with dark/light theme support, skeleton loading states, and local scan history.
+- **Raw JSON Export:** Visualization and export of detailed reports in JSON format for integration with SIEM systems.
+- **PWA Ready:** Installable as a desktop/mobile application and fully usable offline via Service Workers.
+- **Anti-Crash Protection:** Payload size limits to prevent browser freezes on massive inputs.
 
 ---
 
-## Sistema di Punteggio
+## Scoring System
 
-Ogni indicatore di rischio possiede un peso e una severità specifici. La somma dei pesi genera un punteggio complessivo da 0 a 100:
+Each risk indicator has a specific weight and severity. The sum of the weights generates an overall score from 0 to 100:
 
-| Punteggio | Classificazione | Azione Consigliata |
+| Score | Classification | Recommended Action |
 | :--- | :--- | :--- |
-| **80 - 100** | `CRITICAL` | Minaccia confermata. Non interagire. |
-| **60 - 79** | `HIGH` | Fortemente sospetto. Verificare il mittente. |
-| **40 - 59** | `MEDIUM` | Segnali anomali. Procedere con cautela. |
-| **20 - 39** | `LOW` | Rischio basso, ma da monitorare. |
-| **0 - 19** | `SAFE` | Nessun indicatore critico rilevato. |
+| **80 - 100** | `CRITICAL` | Confirmed threat. Do not interact. |
+| **60 - 79** | `HIGH` | Highly suspicious. Verify the sender. |
+| **40 - 59** | `MEDIUM` | Anomalous signals. Proceed with caution. |
+| **20 - 39** | `LOW` | Low risk, but monitor closely. |
+| **0 - 19** | `SAFE` | No critical indicators detected. |
 
 ---
 
-## Stack Tecnologico
+## Tech Stack
 
-- **HTML5:** Struttura semantica
-- **CSS3:** Grid, Flexbox, Custom Properties, Skeleton Loading
-- **JavaScript:** Moduli ES6+ nativi, Service Workers, LocalStorage, Clipboard API
+### Frontend
+- **HTML5:** Semantic structure.
+- **CSS3:** Grid, Flexbox, Custom Properties, Skeleton Loading.
+- **JavaScript:** Native ES6+ Modules, Service Workers, LocalStorage, Clipboard API.
 
 ---
 
-## Installazione e Utilizzo
+## Project Architecture
 
-Nessun passaggio di build richiesto.
+```
+phishlens/
+├── .github/                 # Issue/PR templates and CI/CD workflows
+├── assets/                  # Icons, graphics, and static resources
+├── css/                     # Modular stylesheets (themes, layout)
+├── js/                      # Core analysis modules and UI logic
+├── index.html               # Main application page
+├── manifest.json            # PWA configuration
+├── service-worker.js        # Offline caching and PWA support
+└── README.md                # Project documentation
+```
 
-1. Clonare il repository:
-   ```bash
-   git clone [https://github.com/nowii-core/phishlens.git](https://github.com/nowii-core/phishlens.git)
+---
 
-No build step required.
+## Quick Start
 
-1. Clone the repository:
+### Prerequisites
+No build step is required. The application runs entirely in the browser.
+
+### Installation
+
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/nowii-core/phishlens.git
+   cd phishlens
+   ```
 
+2. **Run the application:**
+   Simply open the `index.html` file in your preferred modern web browser. For optimal PWA and Service Worker functionality during development, it is recommended to serve the directory using a local HTTP server (e.g., `npx serve`, Python's `http.server`, or VS Code Live Server).
 
-GitHub: @nowii-core
+---
+
+## Contact & Support
+
+- **Maintainer:** [@nowii-core](https://github.com/nowii-core)
+- **Bug Reports & Feature Requests:** If you encounter an issue or would like to suggest an improvement, open an [Issue](https://github.com/nowii-core/phishlens/issues) or submit a [Pull Request](https://github.com/nowii-core/phishlens/pulls).
+
+---
+
+<div align="center">
+  <sub>Developed by <b>nowii-core</b></sub>
+</div>
